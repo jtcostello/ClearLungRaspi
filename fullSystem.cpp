@@ -3,7 +3,7 @@
 #include <wiringPi.h>
 
 // LCD - TESTING
-//#include "newLcdCode/lcd_just_library.h"
+#include "newLcdCode/CLP_lcd.h"
 #include <lcd.h>
 #include <vector>
 
@@ -27,6 +27,8 @@ using namespace std;
  -  
  - "option -lwiringPi"
  - "option -lwiringPiDev"
+
+ Compile with: g++ fullSystem.cpp pi2c.cpp -lwiringPi -lwiringPiDev -o fullSystem
 */
 
 
