@@ -1,0 +1,32 @@
+// Based off lcd1602 -> see that for more in depth usage
+#include <iostream>
+#include <wiringPi.h>
+#include <lcd.h>
+
+void lcdClear();
+
+void lcdPrint(int line, const char *words) {
+	int fd = lcdInit(4,20,4, 2,3, 6,5,4,1,0,0,0,0);
+	lcdClear(fd);
+	lcdPosition(fd, 0, line); 
+	lcdPuts(fd, words);
+}
+
+void lcdClear() {
+	int fd = lcdInit(4,20,4, 2,3, 6,5,4,1,0,0,0,0);
+	lcdClear(fd);
+}
+
+
+
+
+
+int main(void) {
+	lcdClear();
+	char *words = "M-HEAL";
+	lcdPrint(1,words);
+	//words = "Clear Lung Project"
+	lcdPrint(2, "Clear Lung Project");
+
+	return 0;
+}
