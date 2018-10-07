@@ -87,7 +87,7 @@ int main() {
 	
     // send teensy the recording time (teensy starts recording)
     int recordTimeMS = recordTimeSec * 1000;
-    teensy1.i2cWrite(int2str(recordTimeMS).cstr(), (int2str(recordTimeMS).length()+1)); 
+//    teensy1.i2cWrite(int2str(recordTimeMS).cstr(), (int2str(recordTimeMS).length()+1)); 
 
     // wait slightly longer than recording time
 	delay(1000*recordTimeSec + 500);
@@ -197,7 +197,7 @@ string int2str(int num) {
 	return strs.str();
 }
 
-
+/*
 // function reads in data from a teensy and writes to a file
 void receiveData(ifstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter) {
 	char recieve[bufSize]; 
@@ -216,3 +216,4 @@ void receiveData(ifstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter
 	}
 }
 
+*/
