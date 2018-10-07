@@ -87,7 +87,7 @@ int main() {
 	
     // send teensy the recording time (teensy starts recording)
     int recordTimeMS = recordTimeSec * 1000;
-//    teensy1.i2cWrite(int2str(recordTimeMS).cstr(), (int2str(recordTimeMS).length()+1)); 
+    teensy1.i2cWrite(const_cast<char*>(int2str(recordTimeMS).c_str()), (int2str(recordTimeMS).length()+1)); 
 
     // wait slightly longer than recording time
 	delay(1000*recordTimeSec + 500);
@@ -113,7 +113,7 @@ int main() {
     os.close();
 	*/
 
-/*
+
 	// calculate total number of bytes for the recording time
 	int numMics = 2;
 	int totalBytes = 44100 * recordTimeSec * 2 * numMics;
@@ -122,7 +122,7 @@ int main() {
 	// separate data into the files, write to files
 	int mic1Counter = 0;
 	int mic2Counter = 0;
-	for (int j=0; j< totalBytes/chunkSize; j++) { // may need to adjust the upper loop limit
+/*	for (int j=0; j< totalBytes/chunkSize; j++) { // may need to adjust the upper loop limit
 		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
         usleep(600); // delay to let teensy read data
         receiveData(mic2, teensy1, chunkSize, &mic2Counter);
@@ -131,7 +131,7 @@ int main() {
 	mic1.close();
 	mic2.close();
 
-
+*/
 
 	/////////////////////////////////// ON FINISH ///////////////////////////////////////
 	lcdClear(lcd);
@@ -145,7 +145,7 @@ int main() {
 	runFFT(nearestPow2(valueCounter), "mic2.txt", "fft.txt");
 	makeGraph("fft.txt");
 	*/
-
+	cout << "All Done" << endl;
 	return 0;
 }
 
