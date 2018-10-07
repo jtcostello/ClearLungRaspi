@@ -40,7 +40,7 @@ const int upButtonPin = 28;
 const int downButtonPin = 29;
 
 const int teensyAddress = 7;
-const int sentBytes = 128;
+const int chunkSize = 128;
 
 int lcd;
 
@@ -51,7 +51,7 @@ void waitForStart();
 void updateWaitingScreen();
 void setupPins();
 string int2str(int num);
-
+void receiveData(ofstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter);
 
 
 int main() {
@@ -122,7 +122,10 @@ int main() {
 	// separate data into the files, write to files
 	int mic1Counter = 0;
 	int mic2Counter = 0;
-/*	for (int j=0; j< totalBytes/chunkSize; j++) { // may need to adjust the upper loop limit
+	
+	cout << totalBytes/chunkSize << " chunks to read" << endl;
+
+	for (int j=0; totalBytes/(chunkSize*2); j++) { // may need to adjust the upper loop limit
 		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
         usleep(600); // delay to let teensy read data
         receiveData(mic2, teensy1, chunkSize, &mic2Counter);
@@ -131,7 +134,7 @@ int main() {
 	mic1.close();
 	mic2.close();
 
-*/
+
 
 	/////////////////////////////////// ON FINISH ///////////////////////////////////////
 	lcdClear(lcd);
@@ -197,23 +200,24 @@ string int2str(int num) {
 	return strs.str();
 }
 
-/*
+
 // function reads in data from a teensy and writes to a file
-void receiveData(ifstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter) {
+void receiveData(ofstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter) {
 	char recieve[bufSize]; 
 	teensy.i2cRead(recieve, bufSize);
 	// convert from bytes to integer, write to file
 	for (int i=0; i < bufSize; i+=2) {
 		unsigned char lower = recieve[i];
 		unsigned char upper = recieve[i+1];
-		unsigned short value = (upper << 8) | lower;
-		if (value > 10000){
+		short value = (upper << 8) | lower;
+		if (value > 10000) {
 			// subtract 2^16
 			value -= 65536; 
+			cout << "subtrating" << endl;
 		}
-		outfile << *valueCounter << " " value << endl;
+		outfile << *valueCounter << " " << value << endl;
 		(*valueCounter)++;
 	}
 }
 
-*/
+
