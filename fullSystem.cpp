@@ -28,7 +28,8 @@ using namespace std;
  - "option -lwiringPi"
  - "option -lwiringPiDev"
 
- Compile with: g++ fullSystem.cpp pi2c.cpp -lwiringPi -lwiringPiDev -o fullSystem
+ Compile with: 
+ g++ fullSystem.cpp pi2c.cpp /home/pi/ClearLungRaspi/newLcdCode/CLP_lcd.h /home/pi/ClearLungRaspi/newLcdCode/CLP_lcd.cpp -lwiringPi -lwiringPiDev -o fullSystem
 */
 
 
@@ -213,7 +214,6 @@ void receiveData(ofstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter
 		if (value > 10000) {
 			// subtract 2^16
 			value -= 65536; 
-			cout << "subtrating" << endl;
 		}
 		outfile << *valueCounter << " " << value << endl;
 		(*valueCounter)++;
