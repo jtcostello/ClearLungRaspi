@@ -78,6 +78,7 @@ int main() {
 	waitForStart();
 
 
+
 	/////////////////////////////////// ON START ///////////////////////////////////////
 	cout << "Recording now" << endl;
 	lcdClear(lcd);
@@ -86,12 +87,9 @@ int main() {
     // setup teensy communication
 	Pi2c teensy1(teensyAddress);
 	
-    // send teensy the recording time (teensy starts recording)
-    int recordTimeMS = recordTimeSec * 1000;
-    teensy1.i2cWrite(const_cast<char*>(int2str(recordTimeMS).c_str()), (int2str(recordTimeMS).length()+1)); 
-
-    // wait slightly longer than recording time
-	delay(1000*recordTimeSec + 500);
+    // tell teensy we're starting to record
+    string startString = "start";
+    teensy1.i2cWrite(const_cast<char*>(startString.c_str()), (startString.length()+1)); 
 
 	// calculate total number of bytes for the recording time
 	int numMics = 2;
@@ -101,14 +99,15 @@ int main() {
 	// separate data into the files, write to files
 	int mic1Counter = 0;
 	int mic2Counter = 0;
-	
+	int bytesRead = 0;
 	cout << totalBytes/chunkSize << " chunks to read" << endl;
 
-	for (int j=0; totalBytes/(chunkSize*2); j++) { // may need to adjust the upper loop limit
+	while (bytesRead < totalBytes) {
 		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
         usleep(600); // delay to let teensy read data
         receiveData(mic2, teensy1, chunkSize, &mic2Counter);
         usleep(600); // delay to let teensy read data
+        bytesRead += 2*chunkSize;
 	}
 	mic1.close();
 	mic2.close();
@@ -190,8 +189,8 @@ void receiveData(ofstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter
 		unsigned char upper = recieve[i+1];
 		short value = (upper << 8) | lower;
 		if (value > 10000) {
-			// subtract 2^15
-			value -= 32768; //65536; 
+			// subtract 2^16
+			value -= 65536; 
 		}
 		outfile << *valueCounter << " " << value << endl;
 		(*valueCounter)++;
