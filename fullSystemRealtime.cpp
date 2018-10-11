@@ -104,9 +104,9 @@ int main() {
 
 	while (bytesRead < totalBytes) {
 		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
-        usleep(600); // delay to let teensy read data
+        usleep(300); // delay to let teensy read data
         receiveData(mic2, teensy1, chunkSize, &mic2Counter);
-        usleep(600); // delay to let teensy read data
+        usleep(300); // delay to let teensy read data
         bytesRead += 2*chunkSize;
 	}
 	mic1.close();
@@ -197,7 +197,7 @@ void receiveData(ofstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter
 	}
 }
 
-
+/*
 void makeGraph(string fname) {
 	string cmd1 = "gnuplot -e 'set terminal png; plot ";
 	string cmd2 = " with lines' > \"graph.png\"";
@@ -206,4 +206,4 @@ void makeGraph(string fname) {
 	// open the image (insatll with: sudo apt-get -y install fbi)
 	system("fbi -a graph.png");
 }
-
+*/
