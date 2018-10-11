@@ -91,7 +91,7 @@ int main() {
     teensy1.i2cWrite(const_cast<char*>(int2str(recordTimeMS).c_str()), (int2str(recordTimeMS).length()+1)); 
 
     // wait slightly longer than recording time
-	delay(1000*recordTimeSec + 500);
+	delay(1000*recordTimeSec + 1500);
 
 	// calculate total number of bytes for the recording time
 	int numMics = 2;
@@ -105,7 +105,7 @@ int main() {
 	cout << totalBytes/chunkSize << " chunks to read" << endl;
 
 	clock_t begin = clock();
-	for (int j=0; totalBytes/(chunkSize*2); j++) { // may need to adjust the upper loop limit
+	for (int j=0; j<totalBytes/(chunkSize*8); j++) { // may need to adjust the upper loop limit
 		// mic1 read 512 bytes = 4x128
 		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
 		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
@@ -118,10 +118,11 @@ int main() {
         receiveData(mic2, teensy1, chunkSize, &mic2Counter);
         // delay to let teensy read data
         usleep(600);
+        if (!(j%10)) { cout << "reading " << j << endl; }
 	}
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
- 	cout << << "elapsed read time " << elapsed_secs << endl;
+ 	cout << "elapsed read time " << elapsed_secs << endl;
 	mic1.close();
 	mic2.close();
 
