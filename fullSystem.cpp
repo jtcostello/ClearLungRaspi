@@ -104,12 +104,24 @@ int main() {
 	
 	cout << totalBytes/chunkSize << " chunks to read" << endl;
 
+	clock_t begin = clock();
 	for (int j=0; totalBytes/(chunkSize*2); j++) { // may need to adjust the upper loop limit
+		// mic1 read 512 bytes = 4x128
 		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
-        usleep(600); // delay to let teensy read data
+		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
+		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
+		receiveData(mic1, teensy1, chunkSize, &mic1Counter);
+        // mic2 read 512 bytes = 4x128
         receiveData(mic2, teensy1, chunkSize, &mic2Counter);
-        usleep(600); // delay to let teensy read data
+        receiveData(mic2, teensy1, chunkSize, &mic2Counter);
+        receiveData(mic2, teensy1, chunkSize, &mic2Counter);
+        receiveData(mic2, teensy1, chunkSize, &mic2Counter);
+        // delay to let teensy read data
+        usleep(600);
 	}
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+ 	cout << << "elapsed read time " << elapsed_secs << endl;
 	mic1.close();
 	mic2.close();
 
@@ -198,7 +210,7 @@ void receiveData(ofstream &outfile, Pi2c &teensy, int bufSize, int *valueCounter
 	}
 }
 
-
+/*
 void makeGraph(string fname) {
 	string cmd1 = "gnuplot -e 'set terminal png; plot ";
 	string cmd2 = " with lines' > \"graph.png\"";
@@ -207,4 +219,4 @@ void makeGraph(string fname) {
 	// open the image (insatll with: sudo apt-get -y install fbi)
 	system("fbi -a graph.png");
 }
-
+*/
