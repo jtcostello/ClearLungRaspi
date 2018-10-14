@@ -2,7 +2,7 @@
 #include <wiringPi.h>
 
 // LCD - TESTING
-#include "newLcdCode/CLP_lcd.h"
+#include "/home/pi/ClearLungRaspi/newLcdCode/CLP_lcd.h"
 #include <lcd.h>
 #include <vector>
 
@@ -21,9 +21,13 @@ using namespace std;
 int main(int argc, char * argv[]) {
 	
 	wiringPiSetup();
-    lcd = setupLCD();
+	int lcd = setupLCD();
 	lcdClear(lcd);
-	lcdPrint(lcd, argv[0], argv[1], argv[2], argv[3])
+	if (argc==5) {
+		lcdPrint(lcd, argv[1], argv[2], argv[3], argv[4]);
+	} else {
+		cout << "Need 4 input strings" << endl;
+	}
 	//lcdPrint(lcd,"","Clear Lung Project","","");
 
 	return 0;
