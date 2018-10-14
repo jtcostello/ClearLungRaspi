@@ -117,7 +117,7 @@ int main() {
         receiveData(mic2, teensy1, chunkSize, &mic2Counter);
         receiveData(mic2, teensy1, chunkSize, &mic2Counter);
         // delay to let teensy read data
-        usleep(600);
+        usleep(1200);
         if (!(j%10)) { cout << "reading " << j << endl; }
 	}
 	clock_t end = clock();

@@ -12,28 +12,33 @@
 # https://www.cube-controls.com/2015/11/02/disable-serial-port-terminal-output-on-raspbian/
 
 import serial
+import time
 
 # setup the output file
 file = open("output.txt","w") 
 
 # setup the serial connection
-ser = serial.Serial('/dev/serial0', 9600, timeout=1)
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 ser.flushInput()
-ser.write("begin record")
+#ser.write("begin record")
+print("serial connected")
 
+N = 512
 
-while True:
-	if ser.inWaitin() > 0
-	response = ser.read(512)
-	print response
-	file.write(response)
+start = time.time()
+count = 0
+while count<1000:
+#	print(ser.in_waiting)
+	if ser.in_waiting > 1:
+#		print(ser.in_waiting)
+		response = ser.read(N)
+		print response
+		file.write(response)
+		count += 1
 
-
-# for i in range(100)
-# 	# read 512 bytes
-# 	response = ser.read(512) 
-# 	print response
-# 	file.write(response)
+# output execution time
+end = time.time()
+print(end-start)
 
 # close file
 file.close() 
