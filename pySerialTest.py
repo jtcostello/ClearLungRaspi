@@ -32,7 +32,7 @@ while count<1000:
 	if ser.in_waiting > 1:
 #		print(ser.in_waiting)
 		response = ser.read(N)
-		print response
+		print(response)
 		file.write(response)
 		count += 1
 
