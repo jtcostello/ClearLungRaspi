@@ -15,10 +15,10 @@ import serial
 import time
 
 # setup the output file
-file = open("output.txt","w") 
+file = open("output.txt","wb") 
 
 # setup the serial connection
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+ser = serial.Serial('/dev/ttyACM0', 115200)
 ser.flushInput()
 #ser.write("begin record")
 print("serial connected")
