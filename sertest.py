@@ -6,7 +6,8 @@
 # https://www.sunfounder.com/blog/rpi-ard/
 
 # setting up raspi serial:
-# https://raspberrypi.stackexchange.com/questions/45570/how-do-i-make-serial-work-on-the-raspberry-pi3-pi3b-pizerow
+# https://raspberrypi.stackexchange.com/questions/45570/
+#    how-do-i-make-serial-work-on-the-raspberry-pi3-pi3b-pizerow
 # https://www.cube-controls.com/2015/11/02/disable-serial-port-terminal-output-on-raspbian/
 
 # use "ls /dev/tty.*" to find port
