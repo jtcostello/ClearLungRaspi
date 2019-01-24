@@ -16,7 +16,7 @@
 import serial
 import time
 
-N = 4*512
+N = 2*512
 
 file = open("output.txt","wb")
 
@@ -58,5 +58,3 @@ print(count)
 
 # need 172 packets per second (512*173 = 44100*2)
 
-
-873/10
