@@ -21,7 +21,7 @@ N = 2*512
 file = open("output.txt","wb")
 
 # setup the serial connection
-ser = serial.Serial('/dev/ttyS0', 40000000)
+ser = serial.Serial('/dev/ttyS0', 400000)
 ser.flushInput() #ser.reset_input_buffer()
 print("serial connected")
 ser.write('start'.encode('utf-8'))
@@ -30,7 +30,7 @@ count = 0
 start = time.time()
 lastReceive = start;
 
-while ((lastReceive - start) < 1):
+while ((lastReceive - start) < 0.5):
     if ser.inWaiting >= N: #(ser.in_waiting)
         response = ser.read(N) #N)
         count = count + 1
