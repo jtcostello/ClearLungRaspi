@@ -21,7 +21,7 @@ N = 2*512
 file = open("output.txt","wb")
 
 # setup the serial connection
-ser = serial.Serial('/dev/ttyS0', 400000)
+ser = serial.Serial('/dev/ttyS0', 4000000)
 ser.flushInput() #ser.reset_input_buffer()
 print("serial connected")
 ser.write('start'.encode('utf-8'))
