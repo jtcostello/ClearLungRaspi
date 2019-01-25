@@ -99,7 +99,7 @@ def readButton(pin):
 	return GPIO.input(pin)
 
 # function to display text on lcd
-def lcd(l1=" ", l2=" ", l3=" ", l4=" "):
+def lcd(l1, l2, l3, l4):
 	call(["./newLcdCode/cmdlineLCD","a"," "," "," "])
 
 
@@ -120,13 +120,13 @@ def waitForStart():
 			print(recordTimeSec)
 			updateWaitingScreen()
 			delay(200);
-		else if readButton(downButtonPin):
+		elif readButton(downButtonPin):
 			# decrease record time
-			if recordTimeSec > 1
+			if recordTimeSec > 1:
 				recordTimeSec -= 1
 			print(recordTimeSec)
 			updateWaitingScreen()
-			delay(200);
+			delay(200)
 
 def updateWaitingScreen():
 	lcd("Record for", str(recordTimeSec), "Press start", " ")
@@ -135,7 +135,7 @@ def updateWaitingScreen():
 
 # function converts the byte data input to list of numbers
 def formatDataIn(data):
-	outdata = ;
+	outdata = 0
 	for i in range(0,length(data),2):
 		lower = data[i]
 		upper = data[i+1]

@@ -24,8 +24,9 @@ file = open("output.txt","wb")
 ser = serial.Serial('/dev/ttyS0', 1000000)
 ser.flushInput() #ser.reset_input_buffer()
 print("serial connected")
-ser.write('start'.encode('utf-8'))
-
+while True:
+	ser.write('start'.encode('utf-8'))
+	time.sleep(0.1)
 count = 0
 start = time.time()
 lastReceive = start;
