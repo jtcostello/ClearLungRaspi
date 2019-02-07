@@ -22,7 +22,7 @@ def readButton(pin):
 
 # function to display text on lcd
 def lcdprint(l1, l2, l3, l4):
-	call(["./newLcdCode/cmdlineLCD","a"," "," "," "])
+	call(["./newLcdCode/cmdlineLCD",l1,l2,l3,l4])
 
 
 # function to delay "t" milliseconds
@@ -84,6 +84,7 @@ def makeGraph(fname):
 
 #/////////////////////////////////// ON BOOT ///////////////////////////////////////
 # setup pins
+#GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(startButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(upButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
