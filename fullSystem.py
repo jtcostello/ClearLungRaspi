@@ -93,17 +93,17 @@ GPIO.setup(downButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 lcdprint(" ","Clear Lung Project"," "," ")
 delay(2000);
 
-# open output files for each mic
-mic1 = open("mic1.txt","w") 
-mic2 = open("mic2.txt","w") 
+# # open output files for each mic
+# mic1 = open("mic1.txt","w") 
+# mic2 = open("mic2.txt","w") 
 
-# setup the serial connection
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-ser.flushInput()
-print("serial connected")
+# # setup the serial connection
+# ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+# ser.flushInput()
+# print("serial connected")
 
-# display option to select recording time and wait for start button press 
-waitForStart()
+# # display option to select recording time and wait for start button press 
+# waitForStart()
 
 
 
@@ -112,28 +112,28 @@ print("Recording now")
 lcdprint("Recording now"," "," "," ")
 
 
-# calculate total number of bytes for the recording time
-numMics = 2
-totalBytes = 44100 * recordTimeSec * 2 * numMics
+# # calculate total number of bytes for the recording time
+# numMics = 2
+# totalBytes = 44100 * recordTimeSec * 2 * numMics
 
-# request the total num bytes from teensy in increments of (128)
-# separate data into the files, write to files
-mic1Counter = 0
-mic2Counter = 0
-bytesRead = 0
+# # request the total num bytes from teensy in increments of (128)
+# # separate data into the files, write to files
+# mic1Counter = 0
+# mic2Counter = 0
+# bytesRead = 0
 
-while bytesRead < totalBytes:
-	if ser.in_waiting > 1:
-		data = formatDataIn(ser.read(N))
-		mic1.write(data)
-		print(data)
-		count += N
+# while bytesRead < totalBytes:
+# 	if ser.in_waiting > 1:
+# 		data = formatDataIn(ser.read(N))
+# 		mic1.write(data)
+# 		print(data)
+# 		count += N
 
 
 
-# close files
-mic1.close()
-mic2.close()
+# # close files
+# mic1.close()
+# mic2.close()
 
 
 
@@ -141,14 +141,14 @@ mic2.close()
 #/////////////////////////////////// ON FINISH ///////////////////////////////////////
 lcdprint("Finished Recording"," "," "," ")
 
-# // show graph of 1 sec of recording
-makeGraph("mic1.txt")
+# # // show graph of 1 sec of recording
+# makeGraph("mic1.txt")
 
-# // show graph of fft
-# runFFT(nearestPow2(valueCounter), "mic2.txt", "fft.txt");
-# makeGraph("fft.txt");
+# # // show graph of fft
+# # runFFT(nearestPow2(valueCounter), "mic2.txt", "fft.txt");
+# # makeGraph("fft.txt");
 
-print("all done")
+# print("all done")
 
 
 
