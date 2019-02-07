@@ -90,7 +90,7 @@ GPIO.setup(upButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(downButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # show title text
-lcdprint(" ","Clear Lung Project")
+lcdprint(" ","Clear Lung Project"," "," ")
 delay(2000);
 
 # open output files for each mic
