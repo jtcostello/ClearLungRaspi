@@ -104,7 +104,7 @@ delay(2000);
 # print("serial connected")
 
 # # display option to select recording time and wait for start button press 
-# waitForStart()
+waitForStart()
 
 
 
