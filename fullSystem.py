@@ -51,7 +51,7 @@ def waitForStart():
 			delay(200)
 
 def updateWaitingScreen():
-	lcd("Record for", str(recordTimeSec), "Press start", " ")
+	lcdprint("Record for", str(recordTimeSec), "Press start", " ")
 
 
 
@@ -90,7 +90,7 @@ GPIO.setup(upButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(downButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # show title text
-lcd(" ","Clear Lung Project")
+lcdprint(" ","Clear Lung Project")
 delay(2000);
 
 # open output files for each mic
