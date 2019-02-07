@@ -38,12 +38,14 @@ def waitForStart():
 	while not readButton(startButtonPin):
 		if readButton(upButtonPin):
 			# increase the record time
+			global recordTimeSec
 			recordTimeSec += 1
 			print(recordTimeSec)
 			updateWaitingScreen()
 			delay(200);
 		elif readButton(downButtonPin):
 			# decrease record time
+			global recordTimeSec
 			if recordTimeSec > 1:
 				recordTimeSec -= 1
 			print(recordTimeSec)
