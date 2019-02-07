@@ -14,6 +14,71 @@ startButtonPin = 27
 upButtonPin = 28
 downButtonPin = 29
 
+#/////////////////////////////////// FUNCTIONS ///////////////////////////////////////
+
+# function to read state of button
+def readButton(pin):
+	return GPIO.input(pin)
+
+# function to display text on lcd
+def lcdprint(l1, l2, l3, l4):
+	call(["./newLcdCode/cmdlineLCD","a"," "," "," "])
+
+
+# function to delay "t" milliseconds
+def delay(t):
+	time.sleep(t/1000)
+
+
+
+# function updates lcd/record time before start
+def waitForStart():
+	updateWaitingScreen();
+	# while the start button hasn't been pressed
+	while not readButton(startButtonPin):
+		if readButton(upButtonPin):
+			# increase the record time
+			recordTimeSec += 1
+			print(recordTimeSec)
+			updateWaitingScreen()
+			delay(200);
+		elif readButton(downButtonPin):
+			# decrease record time
+			if recordTimeSec > 1:
+				recordTimeSec -= 1
+			print(recordTimeSec)
+			updateWaitingScreen()
+			delay(200)
+
+def updateWaitingScreen():
+	lcd("Record for", str(recordTimeSec), "Press start", " ")
+
+
+
+# function converts the byte data input to list of numbers
+def formatDataIn(data):
+	outdata = 0
+	for i in range(0,length(data),2):
+		lower = data[i]
+		upper = data[i+1]
+		value = (upper << 8) | lower
+		if value > 10000:
+			# subtract 2^15
+			value -= 32768 #65536 
+		outdata.append(value)
+
+
+def makeGraph(fname):
+	cmd1 = "gnuplot -e 'set terminal png; plot "
+	cmd2 = " with lines' > \"graph.png\""
+	# make the graph using gnuplot
+	call(cmd1 + fname + cmd2)
+	# open the image (install with: sudo apt-get -y install fbi)
+	call("fbi -a graph.png")
+
+
+
+
 
 
 
@@ -91,70 +156,6 @@ print("all done")
 
 
 
-
-#/////////////////////////////////// FUNCTIONS ///////////////////////////////////////
-
-# function to read state of button
-def readButton(pin):
-	return GPIO.input(pin)
-
-# function to display text on lcd
-def lcdprint(l1, l2, l3, l4):
-	call(["./newLcdCode/cmdlineLCD","a"," "," "," "])
-
-
-# function to delay "t" milliseconds
-def delay(t):
-	time.sleep(t/1000)
-
-
-
-# function updates lcd/record time before start
-def waitForStart():
-	updateWaitingScreen();
-	# while the start button hasn't been pressed
-	while not readButton(startButtonPin):
-		if readButton(upButtonPin):
-			# increase the record time
-			recordTimeSec += 1
-			print(recordTimeSec)
-			updateWaitingScreen()
-			delay(200);
-		elif readButton(downButtonPin):
-			# decrease record time
-			if recordTimeSec > 1:
-				recordTimeSec -= 1
-			print(recordTimeSec)
-			updateWaitingScreen()
-			delay(200)
-
-def updateWaitingScreen():
-	lcd("Record for", str(recordTimeSec), "Press start", " ")
-
-
-
-# function converts the byte data input to list of numbers
-def formatDataIn(data):
-	outdata = 0
-	for i in range(0,length(data),2):
-		lower = data[i]
-		upper = data[i+1]
-		value = (upper << 8) | lower
-		if value > 10000:
-			# subtract 2^15
-			value -= 32768 #65536 
-		outdata.append(value)
-
-
-
-
-def makeGraph(fname):
-	cmd1 = "gnuplot -e 'set terminal png; plot "
-	cmd2 = " with lines' > \"graph.png\""
-	# make the graph using gnuplot
-	call(cmd1 + fname + cmd2)
-	# open the image (install with: sudo apt-get -y install fbi)
-	call("fbi -a graph.png")
 
 
 
