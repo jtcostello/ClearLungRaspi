@@ -44,7 +44,7 @@ waitForStart()
 
 #/////////////////////////////////// ON START ///////////////////////////////////////
 print("Recording now")
-lcd("Recording now"," "," "," ")
+lcdprint("Recording now"," "," "," ")
 
 
 # calculate total number of bytes for the recording time
@@ -74,7 +74,7 @@ mic2.close()
 
 
 #/////////////////////////////////// ON FINISH ///////////////////////////////////////
-lcd("Finished Recording"," "," "," ")
+lcdprint("Finished Recording"," "," "," ")
 
 # // show graph of 1 sec of recording
 makeGraph("mic1.txt")
@@ -99,7 +99,7 @@ def readButton(pin):
 	return GPIO.input(pin)
 
 # function to display text on lcd
-def lcd(l1, l2, l3, l4):
+def lcdprint(l1, l2, l3, l4):
 	call(["./newLcdCode/cmdlineLCD","a"," "," "," "])
 
 
