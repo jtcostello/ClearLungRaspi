@@ -10,9 +10,9 @@ import serial
 recordTimeSec = 1
 N = 512
 
-startButtonPin = 27
-upButtonPin = 28
-downButtonPin = 29
+startButtonPin = 16
+upButtonPin = 20
+downButtonPin = 21
 
 #/////////////////////////////////// FUNCTIONS ///////////////////////////////////////
 
