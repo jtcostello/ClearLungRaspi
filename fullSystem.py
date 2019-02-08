@@ -13,6 +13,7 @@ N = 512
 startButtonPin = 16
 upButtonPin = 20
 downButtonPin = 21
+teensyControlPin = 6
 
 #/////////////////////////////////// FUNCTIONS ///////////////////////////////////////
 
@@ -79,7 +80,11 @@ def makeGraph(fname):
 	call("fbi -a graph.png")
 
 
-
+def changeTeensyRecordStatus(isRecording):
+	if (isRecording):
+		GPIO.output(teensyControlPin, GPIO.HIGH)
+	else:
+		GPIO.output(teensyControlPin, GPIO.LOW)
 
 
 
@@ -91,19 +96,20 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(startButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(upButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(downButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(teensyControlPin, GPIO.OUT)
 
 # show title text
 lcdprint(" ","Clear Lung Project"," "," ")
 delay(2000);
 
-# # open output files for each mic
-# mic1 = open("mic1.txt","w") 
-# mic2 = open("mic2.txt","w") 
+# open output files for each mic
+mic1 = open("mic1.txt","w") 
+mic2 = open("mic2.txt","w") 
 
 # # setup the serial connection
-# ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-# ser.flushInput()
-# print("serial connected")
+ser = serial.Serial('/dev/ttyS0', 1000000)
+ser.flushInput()
+print("serial connected")
 
 # # display option to select recording time and wait for start button press 
 waitForStart()
@@ -113,17 +119,21 @@ waitForStart()
 #/////////////////////////////////// ON START ///////////////////////////////////////
 print("Recording now")
 lcdprint("Recording now"," "," "," ")
+changeTeensyRecordStatus(True)
+
+# wait slightly longer than recording time
+delay(1000*recordTimeSec + 1500);
 
 
-# # calculate total number of bytes for the recording time
-# numMics = 2
-# totalBytes = 44100 * recordTimeSec * 2 * numMics
+# calculate total number of bytes for the recording time
+numMics = 4
+totalBytes = 44100 * recordTimeSec * 2 * numMics
 
-# # request the total num bytes from teensy in increments of (128)
-# # separate data into the files, write to files
-# mic1Counter = 0
-# mic2Counter = 0
-# bytesRead = 0
+# request the total num bytes from teensy in increments of (128)
+# separate data into the files, write to files
+mic1Counter = 0
+mic2Counter = 0
+bytesRead = 0
 
 # while bytesRead < totalBytes:
 # 	if ser.in_waiting > 1:
