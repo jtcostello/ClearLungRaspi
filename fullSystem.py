@@ -90,7 +90,7 @@ def changeTeensyRecordStatus(isRecording):
 
 
 #/////////////////////////////////// ON BOOT ///////////////////////////////////////
-changeTeensyRecordStatus(false)
+changeTeensyRecordStatus(False)
 
 # setup pins
 #GPIO.cleanup()
