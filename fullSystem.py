@@ -90,6 +90,8 @@ def changeTeensyRecordStatus(isRecording):
 
 
 #/////////////////////////////////// ON BOOT ///////////////////////////////////////
+changeTeensyRecordStatus(false)
+
 # setup pins
 #GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
