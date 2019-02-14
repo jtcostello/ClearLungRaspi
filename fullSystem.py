@@ -123,7 +123,7 @@ changeTeensyRecordStatus(True)
 
 # wait slightly longer than recording time
 delay(1000*recordTimeSec + 1500);
-
+changeTeensyRecordStatus(False)
 
 # calculate total number of bytes for the recording time
 numMics = 4
