@@ -90,7 +90,8 @@ def changeTeensyRecordStatus(isRecording):
 
 #/////////////////////////////////// ON BOOT ///////////////////////////////////////
 # setup pins
-GPIO.cleanup()
+# GPIO.cleanup()
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(startButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(upButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -124,6 +125,12 @@ changeTeensyRecordStatus(True)
 # wait slightly longer than recording time
 delay(1000*recordTimeSec + 1500);
 changeTeensyRecordStatus(False)
+print("Stopped Recording")
+
+
+
+
+
 
 # calculate total number of bytes for the recording time
 numMics = 4
@@ -138,6 +145,7 @@ bytesRead = 0
 
 #//////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////
+
 start = time.time()
 lastReceive = start;
 count = 0
