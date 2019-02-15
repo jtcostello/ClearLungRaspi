@@ -89,15 +89,14 @@ def changeTeensyRecordStatus(isRecording):
 
 
 #/////////////////////////////////// ON BOOT ///////////////////////////////////////
-#changeTeensyRecordStatus(False)
-
 # setup pins
-#GPIO.cleanup()
+GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(startButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(upButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(downButtonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(teensyControlPin, GPIO.OUT)
+changeTeensyRecordStatus(False)
 
 # show title text
 lcdprint(" ","Clear Lung Project"," "," ")
@@ -136,13 +135,23 @@ mic1Counter = 0
 mic2Counter = 0
 bytesRead = 0
 
-# while bytesRead < totalBytes:
-# 	if ser.in_waiting > 1:
-# 		data = formatDataIn(ser.read(N))
-# 		mic1.write(data)
-# 		print(data)
-# 		count += N
 
+#//////////////////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////
+start = time.time()
+lastReceive = start;
+count = 0
+while ((lastReceive - start) < 0.5):
+    if ser.inWaiting >= N: #(ser.in_waiting)
+        response = ser.read(N) #N)
+        count = count + 1
+        lastReceive = time.time()
+        print(count)
+        print(time.time()-start)
+        ser.write('receive'.encode('utf-8'))
+	# file.write(response)
+#//////////////////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////
 
 
 # # close files
