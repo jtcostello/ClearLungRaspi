@@ -90,6 +90,7 @@ def changeTeensyRecordStatus(isRecording):
 
 
 #/////////////////////////////////// ON BOOT ///////////////////////////////////////
+recordTimeSec = 1
 changeTeensyRecordStatus(False)
 
 # setup pins
