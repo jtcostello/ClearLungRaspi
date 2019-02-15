@@ -101,7 +101,7 @@ changeTeensyRecordStatus(False)
 
 # show title text
 lcdprint(" ","Clear Lung Project"," "," ")
-delay(2000);
+delay(1000);
 
 # open output files for each mic
 mic1 = open("mic1.txt","w") 
