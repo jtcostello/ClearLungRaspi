@@ -36,17 +36,16 @@ def delay(t):
 def waitForStart():
 	updateWaitingScreen();
 	# while the start button hasn't been pressed
+	global recordTimeSec
 	while not readButton(startButtonPin):
 		if readButton(upButtonPin):
 			# increase the record time
-			global recordTimeSec
 			recordTimeSec += 1
 			print(recordTimeSec)
 			updateWaitingScreen()
 			delay(200);
 		elif readButton(downButtonPin):
 			# decrease record time
-			global recordTimeSec
 			if recordTimeSec > 1:
 				recordTimeSec -= 1
 			print(recordTimeSec)
@@ -90,7 +89,6 @@ def changeTeensyRecordStatus(isRecording):
 
 
 #/////////////////////////////////// ON BOOT ///////////////////////////////////////
-recordTimeSec = 1
 changeTeensyRecordStatus(False)
 
 # setup pins
