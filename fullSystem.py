@@ -36,8 +36,8 @@ def delay(t):
 def waitForStart():
 	updateWaitingScreen();
 	# while the start button hasn't been pressed
-	global recordTimeSec
 	while not readButton(startButtonPin):
+		global recordTimeSec
 		if readButton(upButtonPin):
 			# increase the record time
 			recordTimeSec += 1
