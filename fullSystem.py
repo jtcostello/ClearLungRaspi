@@ -157,14 +157,14 @@ while ((lastReceive - start) < 0.5):
         print(count)
         print(time.time()-start)
         ser.write('receive'.encode('utf-8'))
-	# file.write(response)
+		mic1.write(response)
 #//////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////
 
 
 # # close files
-# mic1.close()
-# mic2.close()
+mic1.close()
+mic2.close()
 
 
 
